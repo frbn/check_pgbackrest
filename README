@@ -104,7 +104,21 @@ DESCRIPTION
         unit per given value. If not set, the last unit is in seconds. Eg.
         "1h 55m 6" = "1h55m6s".
 
-        All the missing archives are only shown in the `--debug` mode.
+        All the missing archives are only shown in the "--debug" mode.
+
+        Use "--list-archives" in addition with "--debug" to print the list
+        of all the archived WAL segments.
+
+        By default, all the archives older than the oldest backup start
+        archive or newer than the max_wal returned by the pgBackRest info
+        command are ignored.
+
+        Use the "--extended-check" argument to force a full check of the
+        found archives and raise warnings in case of inconsistencies.
+
+        After pgBackRest 2.28, it is possible to use the "repo-ls" and
+        "repo-get" internal commands with the "--enable-internal-pgbr-cmds"
+        argument to list and get the content of files in the repository.
 
     check_pgb_version
         Check if this script is running a given version.
@@ -116,7 +130,7 @@ CONTRIBUTING
     welcome.
 
 VERSION
-    check_pgbackrest version 1.7, released on Tue Jan 14 2020.
+    check_pgbackrest version 1.9, released on Tue Jul 28 2020.
 
 LICENSING
     This program is open source, licensed under the PostgreSQL license. For
@@ -127,5 +141,5 @@ AUTHORS
 
     Logo: Damien Cazeils (www.damiencazeils.com).
 
-    Copyright: (c) 2018-2020, Dalibo.
+    Copyright: (c) 2018-2020, Dalibo / 2020-2021, Stefan Fercot.
 

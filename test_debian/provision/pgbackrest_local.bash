@@ -7,28 +7,31 @@ set -o pipefail
 PGVER="$1"
 PGDATA="$2"
 
-PACKAGES=(
-    pgbackrest
-)
+# Install pgbackrest
+sudo apt-get -y install pgbackrest
 
-yum install --nogpgcheck --quiet -y -e 0 "${PACKAGES[@]}"
-
-# pgbackrest.conf setup
 cat<<EOC > "/etc/pgbackrest.conf"
 [global]
-repo1-host=backup-srv
-repo1-host-user=postgres
+repo1-path=/var/lib/pgbackrest
+repo1-retention-full=1
 process-max=2
 log-level-console=warn
 log-level-file=info
+start-fast=y
 delta=y
+repo1-cipher-type=aes-256-cbc
+repo1-cipher-pass=acbd
 
 [my_stanza]
 pg1-path=${PGDATA}
 EOC
 
+sudo -iu postgres pgbackrest --stanza=my_stanza stanza-create
+
 # archive_command setup
-cat <<'EOS' | "/usr/pgsql-${PGVER}/bin/psql" -U postgres
+cat <<'EOS' | psql -U postgres
 ALTER SYSTEM SET "archive_command" TO 'pgbackrest --stanza=my_stanza archive-push %p';
 SELECT pg_reload_conf();
 EOS
+
+sudo -iu postgres pgbackrest --stanza=my_stanza check

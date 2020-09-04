@@ -28,18 +28,18 @@ podselect check_pgbackrest > README.pod
 ## Tagging and building tar file
 
 ```bash
-TAG=REL1_8
+TAG=REL1_9
 git tag -a $TAG -m "Release $TAG"
 git tag
 git push --tags
-git archive --prefix=check_pgbackrest-$TAG/ -o /tmp/check_pgbackrest-1.8.tar.gz $TAG
+git archive --prefix=check_pgbackrest-$TAG/ -o /tmp/check_pgbackrest-1.9.tar.gz $TAG
 ```
 
 ## Release on github
 
-  - Go to https://github.com/dalibo/check_pgbackrest/releases
+  - Go to https://github.com/pgstef/check_pgbackrest/releases
   - Edit the release notes for the new tag
-  - Set "check_pgbackrest $VERSION" as title, eg. "check_pgbackrest 1.8"
+  - Set "check_pgbackrest $VERSION" as title, eg. "check_pgbackrest 1.9"
   - Here is the format of the release node itself:
     YYYY-MM-DD - Version X.Y
     
@@ -50,40 +50,11 @@ git archive --prefix=check_pgbackrest-$TAG/ -o /tmp/check_pgbackrest-1.8.tar.gz 
       
   - Upload the tar file
   - Save
-  - Check or update https://github.com/dalibo/check_pgbackrest/releases
+  - Check or update https://github.com/pgstef/check_pgbackrest/releases
 
 ## Building the RPM file
 
-### Installation
-
-```bash
-yum group install "Development Tools"
-yum install rpmdevtools
-useradd makerpm
-```
-
-### Building the package
-
-```bash
-su - makerpm
-rpmdev-setuptree
-git clone https://github.com/dalibo/check_pgbackrest.git
-spectool -R -g check_pgbackrest/check_pgbackrest.spec
-rpmbuild -ba check_pgbackrest/check_pgbackrest.spec
-```
-
-The RPM is generated into `rpmbuild/RPMS/noarch`.
-
-Don't forget to upload the package on GitHub release page.
-
-### Vagrant
-
-A specific Vagrant script has been created in the `packaging` directory to 
-build the rpm. To launch it, go the the `packaging` directory and execute:
-
-```bash
-make all
-```
+The RPM file is provided by the PGDG community.
 
 ## Community
 
@@ -92,7 +63,7 @@ make all
 Send a mail to the pgsql-announce mailing list. Eg.:
 
 ```
-check_pgbackrest 1.8 has been released
+check_pgbackrest 1.9 has been released
 
 check_pgbackrest is designed to monitor pgBackRest backups from Nagios, 
 relying on the status information given by the "info" command.
@@ -100,7 +71,7 @@ relying on the status information given by the "info" command.
 It allows to monitor the backups retention and the consistency of the 
 archived WAL segments.
 
-Changes in check_pgbackrest 1.8:
+Changes in check_pgbackrest 1.9:
   - ...
   - ...
 
@@ -110,14 +81,14 @@ check_pgbackrest is an open project, licensed under the PostgreSQL license.
 Any contribution to improve it is welcome.
 
 Links:
-  - Download: https://github.com/dalibo/check_pgbackrest/releases
-  - Support: https://github.com/dalibo/check_pgbackrest/issues
+  - Download: https://github.com/pgstef/check_pgbackrest/releases
+  - Support: https://github.com/pgstef/check_pgbackrest/issues
 ```
 
 ### Submit a news on postgresql.org
 
-* organisation: Dalibo
-* Title: "check_pgbackrest 1.7 has been released"
+* organisation: ---------
+* Title: "check_pgbackrest 1.9 has been released"
 * Content:
   
 ```
@@ -130,7 +101,7 @@ backups from Nagios, relying on the status information given by the
 It allows to monitor the backups retention and the consistency of the archived 
 WAL segments.
 
-Changes in check_pgbackrest 1.8
+Changes in check_pgbackrest 1.9
 ------------------------------------------------------------------------------
 
   * ...
@@ -138,21 +109,13 @@ Changes in check_pgbackrest 1.8
 
 Links & Credits
 --------------------------------------------------------------------------------
-
-`check_pgbackrest` is part of the [Dalibo Labs] initiative. It is mainly 
-developed by [Stefan Fercot].
 This is an open project, licensed under the PostgreSQL license. 
 Any contribution to improve it is welcome.
 
 Links:
 
-  * [Download]: https://github.com/dalibo/check_pgbackrest/releases
-  * [Support]: https://github.com/dalibo/check_pgbackrest/issues
-
-Note: RPM package is available on the GitHub Release page. 
-
-[Dalibo Labs]: https://labs.dalibo.com
-[Stefan Fercot]: https://www.dalibo.com/en/equipe#stefan
+  * [Download]: https://github.com/pgstef/check_pgbackrest/releases
+  * [Support]: https://github.com/pgstef/check_pgbackrest/issues
 ```
   
 * check "Related Open Source"

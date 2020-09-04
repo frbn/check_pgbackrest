@@ -1,11 +1,30 @@
 Changelog
 =========
 
-2020-xx-xx v1.8:
+2020-07-28 v1.9:
+
+  - The archives service will now only look at the archives listed between 
+  the oldest backup start archive and the max WAL returned by the pgBackRest 
+  info command. This should avoid unnecessary alerts. 
+  To extend the check to all the archives found, the new --extended-check 
+  argument has been implemented (suggested by blogh).
+  - Remove refresh of pgBackRest info return after getting the archives list. 
+  That avoids CRITICAL alert if an archive is generated between those two steps. 
+  Instead, a WARNING message "max WAL is not the latest archive" will be 
+  displayed (suggested by blogh).
+  - Fix S3 archives detection (reported by khadijahvf).
+  - New enable-internal-pgbr-cmds argument, for pgBackRest >= 2.28. Internal
+  pgBackRest commands will then be used to list and get the content of files
+  in the repository instead of Perl specific drivers. This is, for instance,
+  needed to access encrypted repositories. This should become the default and
+  only access method in the next release, removing some Perl dependencies.
+
+2020-03-16 v1.8:
 
   - Change output of missing archives. The complete list is now only shown in 
-  `--debug` mode (suggested by Guillaume Lelarge).
-  - ...
+  --debug mode (suggested by Guillaume Lelarge).
+  - Add --list-archives argument to print the list of all the archived WAL 
+  segments.
 
 2020-01-14 v1.7:
 
